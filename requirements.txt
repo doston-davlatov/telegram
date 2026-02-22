@@ -1,7 +1,11 @@
-telethon
 fastapi
-uvicorn
-python-multipart
+uvicorn[standard]
+telethon
 opentele
+python-multipart
 requests
 pydantic
+python-dotenv
+aiofiles
+jinja2
+cryptography

